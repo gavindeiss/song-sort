@@ -1,6 +1,5 @@
 // A simple shell for our app
 
-console.log("yo")
 
 const express = require('express')
 const cors = require("cors")
@@ -11,9 +10,11 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+console.log("Swag")
+
 app.post('/refresh', (req, res) => {
+    console.log("Refreshing server.js");
     const refreshToken = req.body.refreshToken
-    console.log("Server RT: ", refreshToken)
     const spotifyApi = new SpotifyWebApi(
         {
             clientId: 'c210eb594ef84fd89c0860fd21069318',
@@ -39,10 +40,10 @@ app.post('/refresh', (req, res) => {
             }
         )
 });
-
+console.log("server.js opened")
 app.post('/login', (req, res) => {
+    console.log("Logging in swag")
     const code = req.body.code;
-    console.log("Trying to login with code: ", code)
     const spotifyApi = new SpotifyWebApi(
         {
             clientId: 'c210eb594ef84fd89c0860fd21069318',

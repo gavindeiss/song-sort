@@ -57,8 +57,9 @@ To make things a bit easier, it's recommended you lean on [spotify-web-api-node]
     - Finish the login route of server.py, making a simple shell for our app to authorize that we have a code and return an access token & refresh token if so
     - Setup Dashboard.js with just a simple div printing the code to ensure it works
     - Finish useAuth.js
-    - Add the devStaart script to server/package.json. runable with 
-        `npm run devStart`
+    - Add the devStart script to server/package.json. runable from server folder with 
+        - `npm run devStart`
+        - May beed to install nodemon first: `npm i nodemon -G`
 
 
 ## Links

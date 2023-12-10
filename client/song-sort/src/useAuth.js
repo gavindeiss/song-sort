@@ -1,6 +1,6 @@
-import React from "react";
 import { useState, useEffect } from 'react';
 import axios from "axios";
+import React from 'react';
 
 export default function useAuth(code) {
     const [accessToken, setAccessToken] = useState();
@@ -9,15 +9,15 @@ export default function useAuth(code) {
 
     // Initial login
     useEffect(() => {
+        console.log("Logging in useAuth");
         axios
             .post('http://localhost:3001/login', {
                 code,
             })
             .then(res => {
-                console.log(res.data)
                 setAccessToken(res.data.accessToken);
                 setRefreshToken(res.data.refreshToken);
-                setExpiresIn(res.data.expiresIn);
+                setExpiresIn(res.data.expiresIn);  
                 window.history.pushState({}, null, "/"); // Remove code from the URL
             }).catch(() => {
                 window.location = "/";
@@ -26,6 +26,7 @@ export default function useAuth(code) {
 
     // Refresh token
     useEffect(() => {
+        console.log("Refreshing useAuth");
         if (!refreshToken || !expiresIn) return
         const interval = setInterval(() => {
             axios
@@ -33,11 +34,11 @@ export default function useAuth(code) {
                     refreshToken,
                 })
                 .then(res => {
-                    console.log(res.data)
                     setAccessToken(res.data.accessToken);
-                    setExpiresIn(res.data.expiresIn);
+                    setExpiresIn(res.data.expiresIn); // res.data.expiresIn
                     window.history.pushState({}, null, "/"); // Remove code from the URL
-                }).catch(() => {
+                })
+                .catch(() => {
                     window.location = "/";
                 })
             }, [(expiresIn - 60) * 1000]) // Refresh ~1 minute before hourly timeout
