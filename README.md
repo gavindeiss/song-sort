@@ -15,10 +15,9 @@ This project was largely done for my own edification on Flask, React & bootstrap
 
 ## Setting up the Repo
 
-- I created the song-sort repo
-- Added 2 empty folders: client and server
-- Spun up a venv pre-emptively
-- cd into client, ran this command to get our react boilerplate:
+- Create the song-sort repo (or whatever you want to call it)
+- Add 2 empty folders: client and server
+- cd into client, rn this command to get our react boilerplate:
    `npx create-react-app song-sort`
 - You'll see nothing but the boilerplate, but at this point if you'd like to see the app running, cd to client/song-sort and run `npm start`
     - Note: If at any point you close out of the tab and want to run npm start again, you'll likely get the error message that port 3000 is still in use. To remedy this, (1) list the running tasks on port 3000, and (2) kill any.
@@ -30,7 +29,7 @@ This project was largely done for my own edification on Flask, React & bootstrap
 
 For more information on spotify's authorization flow, check [this link](https://developer.spotify.com/documentation/web-api/tutorials/code-flow). In short though, we need to create an auth url with proper scopes for our user to be able to create playlists. Here are the steps to do so:
 
-- create a new file under src, Login.js
+- Create a new file under src, Login.js
 - Create an auth url with the following:
     - client_id: You can retrieve this from dashboard --> <your app> --> Settings --> basic information. It would be best practice to set it in a .env file, AWS secrets manager, etc. but it's actually public so you hard-code it in the link for now.
     - response_type: Set this to code, as you should for all spotify web apps
@@ -55,6 +54,12 @@ To make things a bit easier, it's recommended you lean on [spotify-web-api-node]
     - install spotify-web-api-node
         - `npm i express spotify-web-api-node`
         - Check package.json & package-lock.json to ensure both appear under dependencies
+    - Finish the login route of server.py, making a simple shell for our app to authorize that we have a code and return an access token & refresh token if so
+    - Setup Dashboard.js with just a simple div printing the code to ensure it works
+    - Finish useAuth.js
+    - Add the devStart script to server/package.json. runable from server folder with 
+        - `npm run devStart`
+        - May beed to install nodemon first: `npm i nodemon -G`
 
 
 ## Links
