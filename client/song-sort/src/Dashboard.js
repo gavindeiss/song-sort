@@ -1,11 +1,11 @@
 import React from "react";
 import useAuth from "./useAuth";
-import { getUsername, getUserPlaylistIds } from "./Playlist";
+import { getUsername, getUserPlaylists, getUserPlaylistsData } from "./Playlist";
 const SpotifyWebApi = require("spotify-web-api-node")
 
 export default function Dashboard({ code }) {
     const accessToken = useAuth(code);
-    var username, playlistIds;
+    var username, playlists, playlistsData;
 
     if (!accessToken) return;
     const spotifyApi = new SpotifyWebApi(
@@ -18,6 +18,7 @@ export default function Dashboard({ code }) {
     );
 
     username = getUsername(spotifyApi);
-    playlistIds = getUserPlaylistIds(spotifyApi, username, accessToken)
-    console.log(playlistIds);
+    playlists = getUserPlaylists(accessToken);
+    playlistsData = getUserPlaylistsData(accessToken);
+    console.log("no lie", playlistsData);
 }

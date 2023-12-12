@@ -1,4 +1,11 @@
 
+class Playlist {
+    constructor(id, name, image) {
+        this.id = id;
+        this.name = name;
+        this.image = image;
+    }
+};
 
 export const getUsername = async (spotifyApi) => {
     await spotifyApi.getMe()
@@ -11,43 +18,8 @@ export const getUsername = async (spotifyApi) => {
         });
 }
 
-const getPlaylists = async (spotifyApi, username, accessToken) => {
-    var allPlaylistIds = [];
-    var nextLink = null;
-    var offset = 0;
-
-    try {
-        do {
-            const data = await spotifyApi.getUserPlaylists(username);
-            const ids = data.body.items.map(playlist => {return playlist.id})
-            console.log("IDsssss", ids)
-            allPlaylistIds = allPlaylistIds.concat(ids);
-            nextLink = data.body.next;
-            offset += 20
-            console.log("nextLink", nextLink)
-
-            console.log("hail mary", accessToken)
-            const response = await fetch(nextLink, {
-                headers: {
-                    'Authorization': `Bearer ${accessToken}`, // Replace with your actual access token
-                },
-            });
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            const data2 = await response.json();
-            console.log(data2);
-
-        } while (nextLink);
-        return allPlaylistIds;
-    } catch (error) {
-        console.log('Something went wrong!', error);
-        throw error;
-    }
-};
-
-const getPlaylistsVanillaJS = async (username, accessToken) => {
-    var allPlaylistIds = [];
+export const getUserPlaylists = async (accessToken) => {
+    var allPlaylists = [];
     var link = 'https://api.spotify.com/v1/me/playlists';
 
     do {
@@ -63,19 +35,34 @@ const getPlaylistsVanillaJS = async (username, accessToken) => {
     if (response.ok) {
         const playlistsData = await response.json();
         const playlists = playlistsData.items;
-        const ids = playlists.map(playlist => {return playlist.id})
-        allPlaylistIds = allPlaylistIds.concat(ids);
+        allPlaylists = allPlaylists.concat(playlists);
         link = playlistsData.next;
     } else {
         // Handle errors
         console.error('Failed to fetch user playlists:', response.status, response.statusText);
     }
     } while (link)
-    return allPlaylistIds;
+    console.log(allPlaylists);
+    return allPlaylists;
 }
 
-export const getUserPlaylistIds = async (spotifyApi, username, accessToken) => {
-    const playlistIds = await getPlaylistsVanillaJS(username, accessToken);
-    console.log(playlistIds);
-    return playlistIds;
-}
+export const getUserPlaylistsData = async (accessToken) => {
+    try {
+        const playlistsData = await getUserPlaylists(accessToken);
+        let playlists = [];
+
+        playlistsData.forEach((playlist) => {
+            let id = playlist.id;
+            let name = playlist.name;
+            let image = playlist.images[0].url;
+
+            playlists.push(new Playlist(id, name, image));
+        });
+
+        console.log(playlists);
+        return playlists;
+    } catch (error) {
+        console.error('Error creating Playlist objs: ', error);
+        throw error;
+    }
+};
