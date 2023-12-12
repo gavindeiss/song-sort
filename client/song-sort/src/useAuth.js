@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import axios from "axios";
-import React from 'react';
 
 export default function useAuth(code) {
     const [accessToken, setAccessToken] = useState();
@@ -35,7 +34,7 @@ export default function useAuth(code) {
                 })
                 .then(res => {
                     setAccessToken(res.data.accessToken);
-                    setExpiresIn(res.data.expiresIn); // res.data.expiresIn
+                    setExpiresIn(res.data.expiresIn); 
                     window.history.pushState({}, null, "/"); // Remove code from the URL
                 })
                 .catch(() => {
