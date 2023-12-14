@@ -10,8 +10,6 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-console.log("Swag")
-
 app.post('/refresh', (req, res) => {
     console.log("Refreshing server.js");
     const refreshToken = req.body.refreshToken
@@ -40,7 +38,7 @@ app.post('/refresh', (req, res) => {
             }
         )
 });
-console.log("server.js opened")
+
 app.post('/login', (req, res) => {
     console.log("Logging in swag")
     const code = req.body.code;
