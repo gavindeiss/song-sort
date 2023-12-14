@@ -48,19 +48,19 @@ export const getUserPlaylists = async (accessToken) => {
 
 export const getUserPlaylistsData = async (accessToken) => {
     try {
-        const playlistsData = await getUserPlaylists(accessToken);
-        let playlists = [];
+        const playlists = await getUserPlaylists(accessToken);
+        let playlistsData = [];
 
-        playlistsData.forEach((playlist) => {
+        playlists.forEach((playlist) => {
             let id = playlist.id;
             let name = playlist.name;
             let image = playlist.images[0].url;
 
-            playlists.push(new Playlist(id, name, image));
+            playlistsData.push(new Playlist(id, name, image));
         });
 
-        console.log(playlists);
-        return playlists;
+        console.log(playlistsData);
+        return playlistsData;
     } catch (error) {
         console.error('Error creating Playlist objs: ', error);
         throw error;
