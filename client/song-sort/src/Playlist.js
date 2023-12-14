@@ -42,7 +42,6 @@ export const getUserPlaylists = async (accessToken) => {
         console.error('Failed to fetch user playlists:', response.status, response.statusText);
     }
     } while (link)
-    console.log(allPlaylists);
     return allPlaylists;
 }
 
@@ -59,7 +58,6 @@ export const getUserPlaylistsData = async (accessToken) => {
             playlistsData.push(new Playlist(id, name, image));
         });
 
-        console.log(playlistsData);
         return playlistsData;
     } catch (error) {
         console.error('Error creating Playlist objs: ', error);

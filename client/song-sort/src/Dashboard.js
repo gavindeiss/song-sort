@@ -15,7 +15,6 @@ export default function Dashboard({ code }) {
         if (!accessToken) return;
         getUserPlaylists(accessToken)
             .then(playlists => {
-                console.log("Playlists?", playlists)
                 const playlistsData = playlists.map(playlist => ({
                     id: playlist.id,
                     name: playlist.name,
@@ -24,11 +23,7 @@ export default function Dashboard({ code }) {
                 setPlaylistData(playlistsData);
                 })
 
-        console.log("Not lit", playlistsData);
-
     }, [accessToken])
-
-    console.log("Pls", playlistData)
 
     return (
         <Container className="d-flex flex-column py-2" style={{ height: "100vh" }}>
