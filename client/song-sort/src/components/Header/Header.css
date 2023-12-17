@@ -1,0 +1,14 @@
+header {
+    background-color: #343a40; 
+  }
+  
+  .navbar-brand {
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: bold; 
+  }
+  
+  .navbar-brand:hover {
+    color: #ffffff;
+  }
+  
