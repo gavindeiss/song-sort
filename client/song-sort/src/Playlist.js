@@ -35,6 +35,7 @@ export const getUserPlaylists = async (accessToken) => {
     if (response.ok) {
         const playlistsData = await response.json();
         const playlists = playlistsData.items;
+        console.log("Playlists data", playlistsData);
         allPlaylists = allPlaylists.concat(playlists);
         link = playlistsData.next;
     } else {
@@ -45,9 +46,10 @@ export const getUserPlaylists = async (accessToken) => {
     return allPlaylists;
 }
 
-export const getUserPlaylistsData = async (accessToken) => {
+const getUserPlaylistsData = async (accessToken) => {
     try {
         const playlists = await getUserPlaylists(accessToken);
+        console.log("Playlists objs",)
         let playlistsData = [];
 
         playlists.forEach((playlist) => {

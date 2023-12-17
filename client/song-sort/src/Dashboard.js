@@ -19,7 +19,10 @@ export default function Dashboard({ code }) {
                 const playlistsData = playlists.map(playlist => ({
                     id: playlist.id,
                     name: playlist.name,
+                    description: playlist.description,
                     imageUrl: playlist.images[0].url,
+                    numTracks: playlist.tracks.total,
+                    tracksUrl: playlist.tracks.href,
                     key: uuidv4(),
                 }));
                 setPlaylistData(playlistsData);
@@ -38,9 +41,11 @@ export default function Dashboard({ code }) {
                 // onClick={handlePlay}
                 >
                 <img src={playlist.imageUrl} style={{ height: "64px", width: "64px" }} />
-                <div className="ml-3">
+                <div className="ml-3" style={{ paddingLeft: "10px" }}>
                     <div>{playlist.name}</div>
-                    <div className="text-muted">{playlist.id}</div>
+                    {playlist.description !== "" && (
+                        <div className="text-muted">{playlist.description}</div>
+                    )}
                 </div>
               </div>
             ))}
