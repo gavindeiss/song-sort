@@ -2,12 +2,12 @@ import React from "react";
 import { useState, useEffect } from "react"
 import { Container, Form } from "react-bootstrap";
 import useAuth from "./useAuth";
-import { getUsername, getUserPlaylists, getUserPlaylistsData } from "./Playlist";
-const SpotifyWebApi = require("spotify-web-api-node")
+import { getUserPlaylists } from "./Playlist";
+// const SpotifyWebApi = require("spotify-web-api-node")
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Dashboard({ code }) {
     const accessToken = useAuth(code);
-    let username, playlists, playlistsData;
 
     let [playlistData, setPlaylistData] = useState([]);
 
@@ -15,20 +15,17 @@ export default function Dashboard({ code }) {
         if (!accessToken) return;
         getUserPlaylists(accessToken)
             .then(playlists => {
-                console.log("Playlists?", playlists)
+                console.log("Swag", playlists);
                 const playlistsData = playlists.map(playlist => ({
                     id: playlist.id,
                     name: playlist.name,
                     imageUrl: playlist.images[0].url,
+                    key: uuidv4(),
                 }));
                 setPlaylistData(playlistsData);
                 })
 
-        console.log("Not lit", playlistsData);
-
     }, [accessToken])
-
-    console.log("Pls", playlistData)
 
     return (
         <Container className="d-flex flex-column py-2" style={{ height: "100vh" }}>
@@ -37,6 +34,7 @@ export default function Dashboard({ code }) {
               <div
                 className="d-flex m-2 align-items-center"
                 style={{ cursor: "pointer" }}
+                key={playlist.key}
                 // onClick={handlePlay}
                 >
                 <img src={playlist.imageUrl} style={{ height: "64px", width: "64px" }} />

@@ -8,7 +8,7 @@ export default function useAuth(code) {
 
     // Initial login
     useEffect(() => {
-        console.log("Logging in useAuth");
+        console.log("useAuth.js -- Logging in");
         axios
             .post('http://localhost:3001/login', {
                 code,
@@ -25,7 +25,7 @@ export default function useAuth(code) {
 
     // Refresh token
     useEffect(() => {
-        console.log("Refreshing useAuth");
+        console.log("useAuth.js -- Refreshing");
         if (!refreshToken || !expiresIn) return
         const interval = setInterval(() => {
             axios
