@@ -1,8 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react"
 import { Container, Form } from "react-bootstrap";
-import useAuth from "./useAuth";
-import { getUserPlaylists } from "./Playlist";
+import useAuth from "./backend/useAuth";
+import { getUserPlaylists } from "./backend/Playlist";
 // const SpotifyWebApi = require("spotify-web-api-node")
 import { v4 as uuidv4 } from 'uuid';
 
@@ -15,7 +15,6 @@ export default function Dashboard({ code }) {
         if (!accessToken) return;
         getUserPlaylists(accessToken)
             .then(playlists => {
-                console.log("Swag", playlists);
                 const playlistsData = playlists.map(playlist => ({
                     id: playlist.id,
                     name: playlist.name,
