@@ -60,8 +60,13 @@ To make things a bit easier, it's recommended you lean on [spotify-web-api-node]
     - Setup Dashboard.js with just a simple div printing the code to ensure it works
     - Finish useAuth.js
     - Add the devStart script to server/package.json. runable from server folder with 
-        - `npm run devStart`
-        - May beed to install nodemon first: `npm i nodemon -G`
+        - `npm run devStart` 
+        - You may need to install nodemon first: `npm i nodemon -G`
+        - Note: You can also literally just run `nodemon server.js`, not sure why it's industry practice to make a 'script' for one liners like this.
+
+# Chapter 2: Like, Actually building the App
+
+Everything should be setup for your app to be 'running' at this point, there's just not much of anything happening. Let's change that.
 
 ## 1. Collecting & Displaying a user's playlists
 
@@ -110,7 +115,9 @@ return (
       )
 ```
 
-## Links
+## Chapter 2: Making a Popout Component
+
+# Links
 
 - [Spotify Dev Dashboard home](https://developer.spotify.com/dashboard/c210eb594ef84fd89c0860fd21069318)
 

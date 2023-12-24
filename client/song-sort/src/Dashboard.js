@@ -2,12 +2,14 @@ import React from "react";
 import { useState, useEffect } from "react"
 import { Container, Form } from "react-bootstrap";
 import useAuth from "./backend/useAuth";
-import { getUserPlaylists } from "./backend/Playlist";
+import { getUserPlaylists } from "./backend/CollectPlaylistData";
+import { Playlist } from "./components/Playlist/Playlist"
 // const SpotifyWebApi = require("spotify-web-api-node")
 import { v4 as uuidv4 } from 'uuid';
 
 export default function Dashboard({ code }) {
     const accessToken = useAuth(code);
+    const [isPopupVisible, setPopupVisibility] = useState(false);
 
     let [playlistData, setPlaylistData] = useState([]);
 
@@ -33,21 +35,8 @@ export default function Dashboard({ code }) {
     return (
         <Container className="d-flex flex-column py-2" style={{ height: "100vh" }}>
           <div className="flex-grow-1 my-2" style={{ overflowY: "auto" }}>
-            {playlistData.map(playlist => (
-              <div
-                className="d-flex m-2 align-items-center"
-                style={{ cursor: "pointer" }}
-                key={playlist.key}
-                // onClick={handlePlay}
-                >
-                <img src={playlist.imageUrl} style={{ height: "64px", width: "64px" }} />
-                <div className="ml-3" style={{ paddingLeft: "10px" }}>
-                    <div>{playlist.name}</div>
-                    {playlist.description !== "" && (
-                        <div className="text-muted">{playlist.description}</div>
-                    )}
-                </div>
-              </div>
+            {playlistData.map(playlistPayload => (
+              <Playlist key={playlistPayload.key} playlistPayload={playlistPayload} />
             ))}
           </div>
         </Container>
