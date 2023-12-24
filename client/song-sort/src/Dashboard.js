@@ -11,6 +11,7 @@ export default function Dashboard({ code }) {
 
     let [playlistData, setPlaylistData] = useState([]);
 
+    // Collect Playlist Data
     useEffect(() => {
         if (!accessToken) return;
         getUserPlaylists(accessToken)
