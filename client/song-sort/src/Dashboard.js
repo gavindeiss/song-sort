@@ -10,6 +10,12 @@ import { v4 as uuidv4 } from 'uuid';
 export default function Dashboard({ code }) {
     const accessToken = useAuth(code);
     const [isPopupVisible, setPopupVisibility] = useState(false);
+    const [selectedPlaylist, setSelectedPlaylist] = useState(null);
+
+    const handlePlaylistClick = (playlistPayload) => {
+      setSelectedPlaylist(playlistPayload);
+      setPopupVisibility(true);
+    }
 
     let [playlistData, setPlaylistData] = useState([]);
 
@@ -36,9 +42,20 @@ export default function Dashboard({ code }) {
         <Container className="d-flex flex-column py-2" style={{ height: "100vh" }}>
           <div className="flex-grow-1 my-2" style={{ overflowY: "auto" }}>
             {playlistData.map(playlistPayload => (
-              <Playlist key={playlistPayload.key} playlistPayload={playlistPayload} />
+              <Playlist key={playlistPayload.key} playlistPayload={playlistPayload} onPlaylistClick={handlePlaylistClick}/>
             ))}
           </div>
+          {isPopupVisible && (
+            <div className="popup">
+              {selectedPlaylist && (
+                <div>
+                  <h2>{selectedPlaylist.name}</h2>
+                </div>
+              )}
+
+              <button onClick={() => setPopupVisibility(false)}>Close Popup</button>
+            </div>
+          )}
         </Container>
       )
 }
