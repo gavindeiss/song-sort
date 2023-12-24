@@ -8,12 +8,16 @@ Currently just npm start from client/song-sort and it will direct to localhost, 
 
 This project was largely done for my own edification on Flask, React & bootstrap, so I'm writing down step-by-step what I did for my own future reference. But, If you hope to similarly build a simple Spotify app from scratch and are using this app as a starting point, then win-win! Here's what I did, chronologically.
 
-## Creating a Spotify App
+Note: For "Chapter 1" as I'm calling it for some reason, I'd recommend just watching [this](https://www.youtube.com/watch?v=Xcet6msf3eE&t=2058s&ab_channel=WebDevSimplified) video. It will walk you through getting authentification and authorization setup quite clearly. For Chapter 2 onwards, things diverge quite a bit.
+
+# Chapter 1: Initial Setup + Auth
+
+## 1. Creating a Spotify App
 
 - Go to Spotify Developer Dashboard --> Create App
 - Most of everything on this page is self explanatory except redirect_uri. Set it to localhost w/ port 3000 for now -- http://localhost:3000/. Eventually if you want to host it at an actual location, you can double back to this step and change it.
 
-## Setting up the Repo
+## 2. Setting up the Repo
 
 - Create the song-sort repo (or whatever you want to call it)
 - Add 2 empty folders: client and server
@@ -23,9 +27,9 @@ This project was largely done for my own edification on Flask, React & bootstrap
     - Note: If at any point you close out of the tab and want to run npm start again, you'll likely get the error message that port 3000 is still in use. To remedy this, (1) list the running tasks on port 3000, and (2) kill any.
         - `sudo lsof -i :3000`
         - `sudo kill -9 <PID>`
+        - Both in 1: `sudo kill -9 $(lsof -t -i :3000)`
 
-## Authorization
-#### Login auth url, rendering button
+## 3. Authorization
 
 For more information on spotify's authorization flow, check [this link](https://developer.spotify.com/documentation/web-api/tutorials/code-flow). In short though, we need to create an auth url with proper scopes for our user to be able to create playlists. Here are the steps to do so:
 
@@ -43,8 +47,7 @@ For more information on spotify's authorization flow, check [this link](https://
     - App.js (remove the boilerplate, return just login that you import from Login.js)
     - Delete unnecessary files -- app.css, index.css, logo.svg...
 
-## Authentication 
-#### Setting up Login Route
+## 4. Authentication 
 
 To make things a bit easier, it's recommended you lean on [spotify-web-api-node](https://github.com/thelinmichael/spotify-web-api-node) for this authentication. Here's how to get started on that
 
@@ -52,7 +55,6 @@ To make things a bit easier, it's recommended you lean on [spotify-web-api-node]
     - Create a file called server.js
     - run npm init -y to create a package.json file (similar to requirements.txt, but for node dependencies rather than python/ pip)
     - install spotify-web-api-node
-        - `npm i express spotify-web-api-node`
         - Check package.json & package-lock.json to ensure both appear under dependencies
     - Finish the login route of server.py, making a simple shell for our app to authorize that we have a code and return an access token & refresh token if so
     - Setup Dashboard.js with just a simple div printing the code to ensure it works
@@ -61,6 +63,52 @@ To make things a bit easier, it's recommended you lean on [spotify-web-api-node]
         - `npm run devStart`
         - May beed to install nodemon first: `npm i nodemon -G`
 
+## 1. Collecting & Displaying a user's playlists
+
+Step 5 concerns the very initial frontend & backend work you'll need to tackle to hit the spotify API for a user's playlists, and to actually display them on our main dashboard.
+
+## Backend
+
+Check out `public/src/backend/Playlist.js`, specifically the `getUserPlaylists` function. You'll see a pretty standard GET request returning a Promise of all a user's playlist objects. Next, go to Dashboard.js to see how we handle this promise and which fields we extract. It's the first useEffect(), or cntrl + f for the comment `// Collect Playlist Data`. The short of it though is that we're interested in these fields:
+    - id: playlist.id
+    - name: playlist.name
+    - description: playlist.description
+    - imageUrl: playlist.images[0].url
+    - numTracks: playlist.tracks.total
+    - tracksUrl: playlist.tracks.href
+
+Most important is just the final one, tracksUrl, which will allow us to retrieve all the tracks that we want to sort for the user. All of the others are acutally just UI nicities.
+
+## Frontend
+
+That little bit of backend work out of the way, you'll want to display some of those other fields in a scrolling list, like the images of all the playlists & their names.
+
+We can just stuff them in a Container and return them in our Dashboard component. The code in the final repo will likely look quite different from what you'll want to do at this step -- here's what I had at the time:
+
+```
+return (
+        <Container className="d-flex flex-column py-2" style={{ height: "100vh" }}>
+          <div className="flex-grow-1 my-2" style={{ overflowY: "auto" }}>
+            {playlistData.map(playlist => (
+              <div
+                className="d-flex m-2 align-items-center"
+                style={{ cursor: "pointer" }}
+                key={playlist.key}
+                // onClick={handlePlay}
+                >
+                <img src={playlist.imageUrl} style={{ height: "64px", width: "64px" }} />
+                <div className="ml-3" style={{ paddingLeft: "10px" }}>
+                    <div>{playlist.name}</div>
+                    {playlist.description !== "" && (
+                        <div className="text-muted">{playlist.description}</div>
+                    )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </Container>
+      )
+```
 
 ## Links
 
