@@ -3,7 +3,7 @@ import './Header.css';
 
 const Header = () => {
   return (
-    <header className="navbar navbar-dark bg-dark">
+    <header className="Header navbar navbar-dark bg-dark">
       <div className="container">
         <a className="navbar-brand" href="/">
           Your Logo

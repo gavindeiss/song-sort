@@ -1,6 +1,3 @@
-// A simple shell for our app
-
-
 const express = require('express')
 const cors = require("cors")
 const bodyParser = require("body-parser")
@@ -42,11 +39,12 @@ app.post('/refresh', (req, res) => {
 app.post('/login', (req, res) => {
     console.log("server.js -- Logging in")
     const code = req.body.code;
+    console.log("Code while logging in", code)
     const spotifyApi = new SpotifyWebApi(
         {
             clientId: 'c210eb594ef84fd89c0860fd21069318',
             clientSecret: 'bf2ffd7d34ce4c7b8179fffc8da00f14',
-            redirectUri: 'http://localhost:3000'
+            redirectUri: 'http://localhost:3000' // process.env.REACT_APP_BASE_API_URL
         }
     );
     spotifyApi
