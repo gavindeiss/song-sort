@@ -32,7 +32,8 @@ function App() {
           <Route path="/" element={code ? 
             <Navigate to="/home" replace /> : 
             <Login />} /> 
-          <Route path="/home" element={<Dashboard />} />
+          {/* <Route path="/" element={<Login />} />  */}
+          <Route path="/home" element={<Dashboard code={code} />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </BrowserRouter>

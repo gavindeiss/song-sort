@@ -8,11 +8,11 @@ export default function useAuth(code) {
     const [expiresIn, setExpiresIn] = useState();
 
     const navigate = useNavigate();
+    console.log("Code while logging in", code)
 
     // Initial login
     useEffect(() => {
         console.log("useAuth.js -- Logging in");
-        console.log("Code while logging in", code)
         axios
             .post('http://localhost:3001/login', {
                 code,
@@ -22,9 +22,9 @@ export default function useAuth(code) {
                 setRefreshToken(res.data.refreshToken);
                 setExpiresIn(res.data.expiresIn);  
                 window.history.pushState({}, null, "/"); // Remove code from the URL
+                navigate('/home');
             }).catch(() => {
                 // window.location = "/";
-                navigate('/home');
             })
     }, [code])
 
@@ -41,9 +41,10 @@ export default function useAuth(code) {
                     setAccessToken(res.data.accessToken);
                     setExpiresIn(res.data.expiresIn); 
                     window.history.pushState({}, null, "/"); // Remove code from the URL
+                    navigate('/home');
                 })
                 .catch(() => {
-                    navigate('/home');
+                    navigate('/');
                 })
             }, [(expiresIn - 60) * 1000]) // Refresh ~1 minute before hourly timeout
 
