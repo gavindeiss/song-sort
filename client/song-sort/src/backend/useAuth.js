@@ -8,7 +8,6 @@ export default function useAuth(code) {
     const [expiresIn, setExpiresIn] = useState();
 
     const navigate = useNavigate();
-    console.log("Code while logging in", code)
 
     // Initial login
     useEffect(() => {

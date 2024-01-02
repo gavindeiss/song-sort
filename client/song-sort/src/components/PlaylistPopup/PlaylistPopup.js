@@ -1,16 +1,32 @@
 import React from 'react';
+import { Container } from 'react-bootstrap';
+import { useParams, useNavigate } from 'react-router-dom';
 import './PlaylistPopup.css'; 
 
-export const PlaylistPopup = ({ onClose, children }) => {
-    console.log("Yo comeon")
+
+
+export const PlaylistPopup = () => {
+  const { id } = useParams();
+
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    navigate('/');
+  };
+
+  console.log("swaggy", id)
   return (
-    <div className="popup">
-      <div className="popup-content">
-        <button className="close-button" onClick={onClose}>
-          Close
-        </button>
-        {children}
-      </div>
-    </div>
+    <Container 
+        className="d-flex justify-content-center align-items-center"
+        style={{ minHeight: "100vh" }}>
+        <div>
+            <p>Foo Bar</p>
+            <p>{id}</p>
+            <button onClick={handleButtonClick}>
+              Back to Homepage
+            </button>
+        </div>
+
+    </Container>
   );
 };
