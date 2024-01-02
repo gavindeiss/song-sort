@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 export default function useAuth(code) {
@@ -6,9 +7,12 @@ export default function useAuth(code) {
     const [refreshToken, setRefreshToken] = useState();
     const [expiresIn, setExpiresIn] = useState();
 
+    const navigate = useNavigate();
+
     // Initial login
     useEffect(() => {
         console.log("useAuth.js -- Logging in");
+        console.log("Code while logging in", code)
         axios
             .post('http://localhost:3001/login', {
                 code,
@@ -19,7 +23,8 @@ export default function useAuth(code) {
                 setExpiresIn(res.data.expiresIn);  
                 window.history.pushState({}, null, "/"); // Remove code from the URL
             }).catch(() => {
-                window.location = "/";
+                // window.location = "/";
+                navigate('/home');
             })
     }, [code])
 
@@ -38,7 +43,7 @@ export default function useAuth(code) {
                     window.history.pushState({}, null, "/"); // Remove code from the URL
                 })
                 .catch(() => {
-                    window.location = "/";
+                    navigate('/home');
                 })
             }, [(expiresIn - 60) * 1000]) // Refresh ~1 minute before hourly timeout
 
