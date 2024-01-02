@@ -1,4 +1,5 @@
 import { Container, Spinner } from "react-bootstrap";
+import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -9,12 +10,17 @@ export default function PlaylistContainer({ accessToken }) {
   const [isPopupVisible, setPopupVisibility] = useState(false);
   const [selectedPlaylist, setSelectedPlaylist] = useState(null);
 
+  const [playlistData, setPlaylistData] = useState(null);
+  const navigate = useNavigate();
+
   const handlePlaylistClick = (playlistPayload) => {
+    console.log("clicked", playlistPayload);
+    console.log(playlistPayload.id);
     setSelectedPlaylist(playlistPayload);
     setPopupVisibility(true);
+    //navigate('/TestRouting');
+    navigate(`/playlist/${playlistPayload.id}`, { replace: true });
   };
-
-  const [playlistData, setPlaylistData] = useState(null);
 
   // Collect Playlist Data
   useEffect(() => {

@@ -8,7 +8,6 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post('/refresh', (req, res) => {
-    console.log("server.js -- Refreshing");
     const refreshToken = req.body.refreshToken;
     const spotifyApi = new SpotifyWebApi(
         {
@@ -37,9 +36,7 @@ app.post('/refresh', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-    console.log("server.js -- Logging in")
     const code = req.body.code;
-    console.log("Code while logging in", code)
     const spotifyApi = new SpotifyWebApi(
         {
             clientId: 'c210eb594ef84fd89c0860fd21069318',

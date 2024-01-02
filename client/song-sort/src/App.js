@@ -4,24 +4,15 @@ import { Container } from 'react-bootstrap';
 
 import { useEffect } from 'react';
 
+import Header from './components/Header/Header';
 
 import Login from './pages/Login';
 import TestRouting from './pages/TestRouting';
 import Dashboard from './pages/Dashboard';
-import Header from './components/Header/Header';
+import { PlaylistPopup } from './components/PlaylistPopup/PlaylistPopup';
 
 function App() {
   let code = new URLSearchParams(window.location.search).get('code');
-
-  // return (
-  //   <div>
-  //     <Header />
-  //     {code ? <Dashboard code={code} /> : <Login />}
-  //   </div>
-  // );
-
-
-  console.log('Code:', code);
 
   return (
     <Container fluid className="App">
@@ -32,8 +23,8 @@ function App() {
           <Route path="/" element={code ? 
             <Navigate to="/home" replace /> : 
             <Login />} /> 
-          {/* <Route path="/" element={<Login />} />  */}
           <Route path="/home" element={<Dashboard code={code} />} />
+          <Route path="/playlist/:id" element={<PlaylistPopup />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </BrowserRouter>
