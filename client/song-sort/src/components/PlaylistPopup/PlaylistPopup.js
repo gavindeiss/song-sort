@@ -1,14 +1,16 @@
+import Cookies from 'js-cookie';
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
 import './PlaylistPopup.css'; 
 
 
-
 export const PlaylistPopup = () => {
   const { id } = useParams();
 
   const navigate = useNavigate();
+  const accessToken2 = Cookies.get('accessToken');
+  console.log("accessToken2 popup", accessToken2);
 
   const handleButtonClick = () => {
     navigate('/');

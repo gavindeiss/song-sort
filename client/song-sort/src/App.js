@@ -2,8 +2,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 
-import { useEffect } from 'react';
-
 import Header from './components/Header/Header';
 
 import Login from './pages/Login';
