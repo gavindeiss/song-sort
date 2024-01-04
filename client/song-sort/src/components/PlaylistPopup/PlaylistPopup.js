@@ -11,7 +11,7 @@ export const PlaylistPopup = () => {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    navigate('/');
+    navigate('/home');
   };
 
   console.log("swaggy", id)

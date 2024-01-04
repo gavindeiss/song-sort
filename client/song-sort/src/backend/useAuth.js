@@ -1,13 +1,10 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 export default function useAuth(code) {
     const [accessToken, setAccessToken] = useState();
     const [refreshToken, setRefreshToken] = useState();
     const [expiresIn, setExpiresIn] = useState();
-
-    const navigate = useNavigate();
 
     // Initial login
     useEffect(() => {
@@ -21,7 +18,6 @@ export default function useAuth(code) {
                 setRefreshToken(res.data.refreshToken);
                 setExpiresIn(res.data.expiresIn);  
                 window.history.pushState({}, null, "/"); // Remove code from the URL
-                navigate('/home');
             }).catch(() => {
                 // window.location = "/";
             })
@@ -40,10 +36,9 @@ export default function useAuth(code) {
                     setAccessToken(res.data.accessToken);
                     setExpiresIn(res.data.expiresIn); 
                     window.history.pushState({}, null, "/"); // Remove code from the URL
-                    navigate('/home');
                 })
                 .catch(() => {
-                    navigate('/');
+                    //navigate('/');
                 })
             }, [(expiresIn - 60) * 1000]) // Refresh ~1 minute before hourly timeout
 
