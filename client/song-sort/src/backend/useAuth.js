@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
+import Cookies from 'js-cookie';
+
+
 export default function useAuth(code) {
     const [accessToken, setAccessToken] = useState();
     const [refreshToken, setRefreshToken] = useState();
@@ -20,6 +23,7 @@ export default function useAuth(code) {
                 setAccessToken(res.data.accessToken);
                 setRefreshToken(res.data.refreshToken);
                 setExpiresIn(res.data.expiresIn);  
+                Cookies.set('accessToken', res.data.accessToken);
                 window.history.pushState({}, null, "/"); // Remove code from the URL
                 navigate('/home');
             }).catch(() => {
