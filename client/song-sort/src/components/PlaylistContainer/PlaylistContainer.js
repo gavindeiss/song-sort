@@ -7,20 +7,9 @@ import { Playlist } from "../Playlist/Playlist";
 import { getUserPlaylists } from "../../backend/CollectPlaylistData"; 
 
 export default function PlaylistContainer({ accessToken }) {
-  const [isPopupVisible, setPopupVisibility] = useState(false);
-  const [selectedPlaylist, setSelectedPlaylist] = useState(null);
+  console.log("wtf")
 
   const [playlistData, setPlaylistData] = useState(null);
-  const navigate = useNavigate();
-
-  const handlePlaylistClick = (playlistPayload) => {
-    console.log("clicked", playlistPayload);
-    console.log(playlistPayload.id);
-    setSelectedPlaylist(playlistPayload);
-    setPopupVisibility(true);
-    //navigate('/TestRouting');
-    navigate(`/playlist/${playlistPayload.id}`, { replace: true });
-  };
 
   // Collect Playlist Data
   useEffect(() => {
@@ -55,15 +44,13 @@ export default function PlaylistContainer({ accessToken }) {
         <div className="flex-grow-1 my-2" style={{ overflowY: "auto" }}>
           {playlistData.map((playlistPayload) => (
             <Playlist
-              key={playlistPayload.key}
               playlistPayload={playlistPayload}
-              onPlaylistClick={handlePlaylistClick}
             />
           ))}
         </div>
       )}
 
-      {isPopupVisible && (
+      {/* {isPopupVisible && (
         <div className="popup">
           {selectedPlaylist && (
             <div>
@@ -73,7 +60,7 @@ export default function PlaylistContainer({ accessToken }) {
 
           <button onClick={() => setPopupVisibility(false)}>Close Popup</button>
         </div>
-      )}
+      )} */}
     </Container>
   );
 }
