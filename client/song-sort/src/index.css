@@ -1,7 +1,14 @@
+:root {
+  --primary-color: #3498db;
+  --secondary-color: #2ecc71;
+  --accent-color: #e74c3c;
+  --text-color: #333;
+  /* Add more color variables as needed */
+}
+
 .App {
     padding: 0 !important;
+    background-color: #ffffff !important;
   }
 
-.Header {
-    border-bottom: 2px solid #007700 !important;
-  }
+

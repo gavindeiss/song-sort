@@ -7,8 +7,6 @@ import { Playlist } from "../Playlist/Playlist";
 import { getUserPlaylists } from "../../backend/CollectPlaylistData"; 
 
 export default function PlaylistContainer({ accessToken }) {
-  console.log("wtf")
-
   const [playlistData, setPlaylistData] = useState(null);
 
   // Collect Playlist Data
@@ -49,18 +47,6 @@ export default function PlaylistContainer({ accessToken }) {
           ))}
         </div>
       )}
-
-      {/* {isPopupVisible && (
-        <div className="popup">
-          {selectedPlaylist && (
-            <div>
-              <h2>{selectedPlaylist.name}</h2>
-            </div>
-          )}
-
-          <button onClick={() => setPopupVisibility(false)}>Close Popup</button>
-        </div>
-      )} */}
     </Container>
   );
 }

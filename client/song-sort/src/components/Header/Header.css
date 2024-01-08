@@ -1,5 +1,6 @@
-header {
-    background-color: #343a40; 
+.Header {
+    background-color: #000000 !important;
+    /* border-bottom: 2px solid #002200 !important;  */
   }
   
   .navbar-brand {
@@ -12,3 +13,7 @@ header {
     color: #ffffff;
   }
   
+  .logo-text {
+    color: white; /* Set the color of the text */
+    font-size: 24px; /* Adjust the font size as needed */
+  }

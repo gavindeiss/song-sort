@@ -1,21 +1,13 @@
 import React from "react";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 
 export const Playlist = ({playlistPayload}) => {
 
-
-    const [isPopupVisible, setPopupVisibility] = useState(false);
-    const [selectedPlaylist, setSelectedPlaylist] = useState(null);
     const navigate = useNavigate();
 
     const handlePlaylistClick = (playlistPayload) => {
-        console.log("clicked", playlistPayload);
         console.log(playlistPayload.id);
-        setSelectedPlaylist(playlistPayload);
-        setPopupVisibility(true);
-        //navigate('/TestRouting');
         navigate(`/playlist/${playlistPayload.id}`, { replace: true });
       };
 
@@ -27,9 +19,9 @@ export const Playlist = ({playlistPayload}) => {
         >
             <img src={playlistPayload.imageUrl} style={{ height: "64px", width: "64px" }} />
             <div className="ml-3" style={{ paddingLeft: "10px" }}>
-                <div>{playlistPayload.name}</div>
+                <div style={{ color: '#000000' }}>{playlistPayload.name} </div>
                 {playlistPayload.description !== "" && (
-                    <div className="text-muted">{playlistPayload.description}</div>
+                    <div style={{ color: '#444444', fontSize: 12 }}>{playlistPayload.description}</div>
                 )}
             </div>
         </div>
