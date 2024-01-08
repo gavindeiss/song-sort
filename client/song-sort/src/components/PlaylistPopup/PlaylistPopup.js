@@ -9,14 +9,11 @@ export const PlaylistPopup = () => {
   const { id } = useParams();
 
   const navigate = useNavigate();
-  const accessToken2 = Cookies.get('accessToken');
-  console.log("accessToken2 popup", accessToken2);
 
   const handleButtonClick = () => {
     navigate('/');
   };
 
-  console.log("swaggy", id)
   return (
     <Container 
         className="d-flex justify-content-center align-items-center"
