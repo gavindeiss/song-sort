@@ -1,8 +1,6 @@
 :root {
-  --primary-color: #3498db;
-  --secondary-color: #2ecc71;
-  --accent-color: #e74c3c;
-  --text-color: #333;
+  --dark-green-atom: #004400;
+  --dark-purple-atom: #440044;
   /* Add more color variables as needed */
 }
 

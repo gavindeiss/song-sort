@@ -1,11 +1,11 @@
 import { Container, Spinner } from "react-bootstrap";
-import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from 'uuid';
 
 import { Playlist } from "../Playlist/Playlist";
 import { getUserPlaylists } from "../../backend/CollectPlaylistData"; 
 
+// TODO cookies for accessToken
 export default function PlaylistContainer({ accessToken }) {
   const [playlistData, setPlaylistData] = useState(null);
 

@@ -1,7 +1,7 @@
-import Cookies from 'js-cookie';
 import React from 'react';
-import { Container } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
+import TracklistContainer from '../../components/TracklistContainer/TracklistContainer';
 import './PlaylistPopup.css'; 
 
 
@@ -11,20 +11,21 @@ export const PlaylistPopup = () => {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    navigate('/');
+    navigate('/home');
   };
 
   return (
     <Container 
         className="d-flex justify-content-center align-items-center"
         style={{ minHeight: "100vh" }}>
-        <div>
+        <div className="popup-content">
             <p>Foo Bar</p>
             <p>{id}</p>
-            <button onClick={handleButtonClick}>
+            <Button variant="contained" className="close-button" onClick={handleButtonClick} >
               Back to Homepage
-            </button>
+            </Button>
         </div>
+        <TracklistContainer/>
 
     </Container>
   );

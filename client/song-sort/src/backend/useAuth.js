@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 import Cookies from 'js-cookie';
@@ -10,10 +10,11 @@ export default function useAuth(code) {
     const [refreshToken, setRefreshToken] = useState();
     const [expiresIn, setExpiresIn] = useState();
 
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
 
     // Initial login
     useEffect(() => {
+        if (!code) return;
         console.log("useAuth.js -- Logging in");
         axios
             .post('http://localhost:3001/login', {
@@ -25,7 +26,7 @@ export default function useAuth(code) {
                 setExpiresIn(res.data.expiresIn);  
                 Cookies.set('accessToken', res.data.accessToken);
                 window.history.pushState({}, null, "/"); // Remove code from the URL
-                navigate('/home');
+                //navigate('/home');
             }).catch(() => {
                 // window.location = "/";
             })
@@ -34,7 +35,7 @@ export default function useAuth(code) {
     // Refresh token
     useEffect(() => {
         console.log("useAuth.js -- Refreshing");
-        if (!refreshToken || !expiresIn) return
+        if (!refreshToken || !expiresIn || !code) return
         const interval = setInterval(() => {
             axios
                 .post('http://localhost:3001/refresh', {
@@ -44,10 +45,10 @@ export default function useAuth(code) {
                     setAccessToken(res.data.accessToken);
                     setExpiresIn(res.data.expiresIn); 
                     window.history.pushState({}, null, "/"); // Remove code from the URL
-                    navigate('/home');
+                    //navigate('/home');
                 })
                 .catch(() => {
-                    navigate('/');
+                    //navigate('/');
                 })
             }, [(expiresIn - 60) * 1000]) // Refresh ~1 minute before hourly timeout
 
