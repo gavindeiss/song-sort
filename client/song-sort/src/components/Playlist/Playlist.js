@@ -1,14 +1,17 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie';
 
 
 export const Playlist = ({playlistPayload}) => {
 
     const navigate = useNavigate();
 
-    const handlePlaylistClick = (playlistPayload) => {
+    const handlePlaylistClick = () => {
+        console.log(playlistPayload);
         console.log(playlistPayload.id);
         navigate(`/playlist/${playlistPayload.id}`, { replace: true });
+        Cookies.set('tracklistLink', playlistPayload.tracksUrl);
       };
 
     return (
