@@ -64,7 +64,7 @@ To make things a bit easier, it's recommended you lean on [spotify-web-api-node]
         - You may need to install nodemon first: `npm i nodemon -G`
         - Note: You can also literally just run `nodemon server.js`, not sure why it's industry practice to make a 'script' for one liners like this.
 
-# Chapter 2: Like, Actually building the App
+# Chapter 2: Implementing the Core Functionality
 
 Everything should be setup for your app to be 'running' at this point, there's just not much of anything happening. Let's change that.
 
